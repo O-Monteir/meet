@@ -1,0 +1,110 @@
+body {
+    background: #6bbdff; /* Light sophisticated background color */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#join-btn {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    padding: 15px 30px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
+}
+
+#join-btn:hover {
+    background-color: #0056b3;
+}
+
+#subscriber-controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#subscriber-controls label,
+#subscriber-controls input,
+#subscriber-controls button {
+    margin: 5px;
+}
+
+#video-streams {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    height: 90vh;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.video-container {
+    max-height: 100%;
+    border: 2px solid #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.video-player {
+    height: 100%;
+    width: 100%;
+}
+
+button {
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#stream-controls {
+    display: none;
+    justify-content: center;
+    margin-top: 0.5em;
+}
+
+#start-transcribing {
+    background-color: #28a745;
+}
+
+#stop-transcribing {
+    background-color: #dc3545;
+}
+
+#transcription {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#transcription-content {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 1400px) {
+    #video-streams {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        width: 95%;
+    }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equip='X-UA-Compatiable' content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video calling application</title>
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.18.3.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="video.css">
+
+</head>
+<body>
+    <label for="username">Enter Your Name:</label>
+    <input type="text" id="username" name="username">
+    <button id="join-btn"> Join call </button>
+    <div id="stream-wrapper">
+        <div id="video-streams"></div>
+
+        <div id="stream-controls">
+            
+            <button id="leave-btn">Leave Stream</button>
+            <button id="mic-btn">Mic On</button>
+            <button id="camera-btn">Camera on</button>
+            <!-- <div>
+                <label for="channel-name-display">Channel Name: </label>
+                <span id="channel-name-display"></span>
+            </div> -->
+
+            <!-- Add this to your HTML body -->
+            
+            <div id="transcription">
+                <h2>Transcription:</h2>
+                <div id="transcription-content"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="AgoraRTC_N-4.18.3.js"></script>
+<script src="video.js"></script>
+</html>
