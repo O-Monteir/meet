@@ -3,7 +3,7 @@ const APP_ID = 'f41cb1258bef40fb8a284e65e15f0a83';
 let TOKEN = "007eJxTYKhoFin7I1i1apvSg7yp3O6lN3Ztd5DufXpjk43Irwe/585VYEgzMUxOMjQytUhKTTMxSEuySDSyMEk1M001NE0zSLQwXvbpX2pDICOD8+JHjIwMEAjiszCkpObmMzAAAOogIno="
 let CHANNEL = "demo"
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
-
+const hostUrl = window.location.origin; // Get the current host URL
 let localTracks = [];
 let remoteUsers = {};
 
@@ -95,6 +95,12 @@ let joinStream = async () => {
     await joinAndDisplayLocalStream();
     document.getElementById('join-btn').style.display = 'none';
     document.getElementById('stream-controls').style.display = 'flex';
+
+    // Generate the link dynamically
+    
+    const link = `${hostUrl}/video.html`; // Complete meeting link
+    console.log('Meeting link:', link);
+    document.getElementById('meeting-link').innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
 }
 
 let handleUserJoined = async (user, mediaType) => {
