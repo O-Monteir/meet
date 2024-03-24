@@ -1,7 +1,9 @@
 
 const APP_ID = 'f41cb1258bef40fb8a284e65e15f0a83';
-const TOKEN = process.env.TOKEN;
-const CHANNEL = process.env.CHANNEL;
+// const TOKEN = process.env.TOKEN;
+// const CHANNEL = process.env.CHANNEL;
+const TOKEN="007eJxTYKhoFin7I1i1apvSg7yp3O6lN3Ztd5DufXpjk43Irwe/585VYEgzMUxOMjQytUhKTTMxSEuySDSyMEk1M001NE0zSLQwXvbpX2pDICOD8+JHjIwMEAjiszCkpObmMzAAAOogIno="
+const CHANNEL="demo"
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 const hostUrl = window.location.origin; // Get the current host URL
 let localTracks = [];
