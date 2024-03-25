@@ -78,6 +78,26 @@ async function uploadToCloudinary(filePath, username) {
     }
 }
 
+async function uploadTranscriptToCloudinary(combinedTranscript) {
+    try {
+        const cloudinaryUploadResult = await cloudinary.uploader.upload_stream(
+            { resource_type: 'raw', folder: 'combinedTranscript', public_id: 'combined_transcripts' },
+            (error, result) => {
+                if (error) {
+                    console.error('Error uploading text to Cloudinary:', error);
+                } else {
+                    console.log('Text upload to Cloudinary successful:', result);
+                }
+            }
+        ).end(combinedTranscript);
+
+        return cloudinaryUploadResult;
+    } catch (error) {
+        console.error('Error uploading text to Cloudinary:', error);
+        throw error;
+    }
+}
+
 
 
 //COMBINE TRANSCRIPT
@@ -88,8 +108,14 @@ app.post('/combineTranscripts', async (req, res) => {
         const transcripts =await combineTranscripts(); // Execute the combineTranscripts method
         
         if(transcripts!==null){
+            console.log("TRANSCRIPT CREATED IN Server.JS");
             console.log(transcripts);
-            res.json({ transcripts });
+            // Upload the combined transcripts text to Cloudinary
+            const cloudinaryUploadResult = await uploadTranscriptToCloudinary(transcripts);
+            console.log("Cloudinary upload result:", cloudinaryUploadResult);
+
+            res.status(200).json({ success: true, cloudinaryUploadResult });
+            
         }
         else{
             res.status(500).send('Error combining transcripts');
@@ -167,7 +193,7 @@ async function combineTranscripts() {
 
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
