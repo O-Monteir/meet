@@ -6,6 +6,11 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios'); 
+const https = require('https');
+
+const transcriptUsernames = ['Sarah', 'Malaika']
+
 dotenv.config();
 
 app.use(express.static('public'));
@@ -73,62 +78,91 @@ async function uploadToCloudinary(filePath, username) {
     }
 }
 
+
+
 //COMBINE TRANSCRIPT
 
-// Function to fetch transcript files from Cloudinary based on usernames
-async function fetchTranscriptFiles() {
+app.post('/combineTranscripts', async (req, res) => {
     try {
-        const result = await cloudinary.search
-            .expression('resource_type:raw tags:transcript')
-            .execute();
-
-        const transcripts = result.resources.map(resource => ({
-            username: getUsernameFromFilename(resource.filename),
-            url: resource.secure_url // Assuming you store the transcript files in Cloudinary
-        }));
-
-        return transcripts;
-    } catch (error) {
-        console.error('Error fetching transcript files from Cloudinary:', error);
-        throw error;
-    }
-}
-
-// Function to combine transcripts
-async function combineTranscripts() {
-    try {
-        const transcripts = await fetchTranscriptFiles();
-        let combinedTranscript = '';
-        // Your code to combine transcripts goes here
-        // ...
-        // Once combined, you may want to save the combined transcript to a file or return it as a response
         
-        // Example: Saving to a file
-        fs.writeFileSync('combined_transcripts.txt', 'Combined transcripts content...');
+        const transcripts =await combineTranscripts(); // Execute the combineTranscripts method
         
-        // Example: Returning as a response (you can adjust the response based on your requirements)
-        return 'Combined transcripts successfully!';
+        if(transcripts!==null){
+            console.log(transcripts);
+            res.json({ transcripts });
+        }
+        else{
+            res.status(500).send('Error combining transcripts');
+            console.error("couldn't combine");
+        }
+
     } catch (error) {
         console.error('Error combining transcripts:', error);
-        throw error;
-    }
-}
-
-// Endpoint to trigger the transcript combining process
-app.get('/combineTranscripts', async (req, res) => {
-    try {
-        const result = await combineTranscripts();
-        res.send(result);
-    } catch (error) {
         res.status(500).send('Error combining transcripts');
     }
 });
 
+// Function to fetch transcript data from HTTP links for a given username
+function fetchTranscriptData(username) {
+    return new Promise((resolve, reject) => {
+        const url = `https://res.cloudinary.com/drf5xu4vy/raw/upload/v1711373576/${username}_transcript.txt`;
+        https.get(url, res => {
+            let data = '';
 
-// Function to extract username from filename
-function getUsernameFromFilename(filename) {
-    return filename.split('_')[0];
+            res.on('data', chunk => {
+                data += chunk;
+            });
+
+            res.on('end', () => {
+                resolve({ username, data });
+            });
+
+            res.on('error', err => {
+                reject(err);
+            });
+        });
+    });
 }
+
+
+async function combineTranscripts() {
+    let combinedTranscripts = [];
+    
+    // Fetch transcripts for all users
+    for (const username of transcriptUsernames) {
+        try {
+            const { username: fetchedUsername, data } = await fetchTranscriptData(username);
+            
+            // Extract timestamp and text from each line
+            data.split('\n').forEach(line => {
+                if (line.trim().length > 0) {
+                    const [timestampString, ...textParts] = line.split(' - ');
+                    const timestamp = new Date(timestampString);
+                    const text = textParts.join(' - ');
+                    
+                    // Push the message to combinedTranscripts
+                    combinedTranscripts.push({ username: fetchedUsername, timestamp, text });
+                }
+            });
+        } catch (error) {
+            console.error(`Error fetching transcript for ${username}: ${error}`);
+        }
+    }
+
+    // Sort combined transcripts by timestamp
+    combinedTranscripts.sort((a, b) => a.timestamp - b.timestamp);
+    
+    // Construct the output string
+    let output = '';
+    combinedTranscripts.forEach(transcript => {
+        output += `${transcript.username}:\n\n${transcript.text}\n\n`;
+    });
+    
+    return output;
+}
+
+
+
 
 
 
