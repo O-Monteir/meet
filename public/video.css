@@ -1,8 +1,39 @@
 body {
-    background: #6bbdff; /* Light sophisticated background color */
+    /* background: #6bbdff;  */
+    background: #ffffff;
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
+
+#page {
+    position: fixed;
+    top: 20px; /* Adjust top position */
+    z-index: 1000;
+}
+
+.arrow {
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(75, 168, 255);
+    margin: 0 10px;
+    transition: transform 0.3s ease; /* Add animation transition */
+}
+
+.arrow:hover {
+    transform: scale(1.2); /* Add hover animation */
+}
+
+.left-arrow {
+    position: fixed;
+    left: 20px; /* Adjust left position */
+}
+
+.right-arrow {
+    position: fixed;
+    right: 20px; /* Adjust right position */
+}
+
 
 html, body {
     height: 100%;
@@ -12,8 +43,9 @@ html, body {
     align-items: center;
 }
 
+
 #join-container {
-    text-align: center;
+    text-align:left;
 }
 
 #username {
@@ -70,6 +102,9 @@ html, body {
     margin: 0 auto;
 }
 
+
+
+
 .video-container {
     max-height: 100%;
     border: 2px solid #ddd;
@@ -100,6 +135,7 @@ button:hover {
     background-color: #0056b3;
 }
 
+
 #stream-controls {
     display: none;
     justify-content: center;
@@ -115,20 +151,44 @@ button:hover {
 }
 
 #transcription {
-    border: 1px solid #ddd;
-    padding: 10px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #f3f4f6; /* Light gray background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 260px; /* Adjust the width as needed */
+    max-height: 400px; /* Limit the maximum height */
+    overflow-y: auto; /* Add vertical scrollbar when needed */
+}
+
+#transcription h3 {
+    margin-bottom: 0px;
+    padding-bottom: 5px;
+    color: #333; /* Dark gray text color */
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #transcription-content {
+    background-color: #e9ecef; /* Off-white background */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+
+
+/* #transcription-content {
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 8px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} */
 /*  */
 
 #meeting-link-container {
@@ -171,7 +231,7 @@ button:hover {
 
 @media screen and (max-width: 1400px) {
     #video-streams {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         width: 95%;
     }
 }

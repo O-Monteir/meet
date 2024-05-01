@@ -35,7 +35,7 @@ recognition.onresult = async function (event) {
         fullTranscript += message + '\n';
         
         // Update the transcription content
-        transcriptionContent.innerHTML = "<b><i>Transcription: </i></b>" + fullTranscript;
+        transcriptionContent.innerHTML = "<b><i></i></b>" + fullTranscript;
     }
 };
 
@@ -102,12 +102,17 @@ let joinStream = async () => {
     document.getElementById('join-btn').style.display = 'none';
 
     document.getElementById('stream-controls').style.display = 'flex';
+    // document.getElementsByClassName('join-container').style.display='none';
+    document.querySelector('.body-img').style.display = 'none';
+
+    // Hide the logo image
+    document.querySelector('.join-container .logo img').style.display = 'none';
 
     // Display the meeting link container
     document.getElementById('meeting-link-container').style.display = 'block';
 
     // Generate the link dynamically
-    
+    document.getElementById('page').style.display = 'none';
     const link = `${hostUrl}/video.html`; // Complete meeting link
     console.log('Meeting link:', link);
     document.getElementById('meeting-link').innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
@@ -171,6 +176,11 @@ let leaveAndRemoveLocalStream = async () => {
     document.getElementById('join-btn').style.display = 'block';
     document.getElementById('stream-controls').style.display = 'none';
     document.getElementById('video-streams').innerHTML = '';
+    document.querySelector('.body-img').style.display = 'block';
+    // Hide the logo image
+    document.querySelector('.join-container .logo img').style.display = 'block';
+    document.getElementById('meeting-link-container').style.display = 'none';
+    document.getElementById('page').style.display = 'block';
 }
 
 

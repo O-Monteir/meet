@@ -10,7 +10,21 @@
 
 </head>
 <body>
+    <nav id="page">
+        <a href="./index.html" class="arrow left-arrow">&#8592; Home Page</a>
+        <a href="./download.html" class="arrow right-arrow">Download Transcript &#8594;</a>
+
+    </nav>
+    
+    <img class="body-img" src="./images/body.jpg" style="width: 850px; height: 600px;">
+    
     <div class="join-container">
+        <div class="logo">
+            <img src="./images/logo.png" alt="meet-icon"> 
+        </div>
+        <br>
+    
+        
         <input type="text" id="username" name="username" placeholder="Enter Name">
         <button id="join-btn"> Join call </button>
     </div>
@@ -34,26 +48,17 @@
             <button id="leave-btn">Leave Stream</button>
             <button id="mic-btn">Mic On</button>
             <button id="camera-btn">Camera on</button>
-            <!-- <div>
-                <label for="channel-name-display">Channel Name: </label>
-                <span id="channel-name-display"></span>
-            </div> -->
-
-            <!-- Add this to your HTML body -->
+            
             
             <div id="transcription">
                 <h2>Transcription:</h2>
                 <div id="transcription-content"></div>
             </div>
 
-            <!-- Display the meeting link -->
-            <!-- <div id="meeting-link-container">
-                <h3>Invite:</h3>
-                <div id="meeting-link"></div>
-            </div> -->
             
         </div>
 
+        
         <div id="meeting-link-container" style="display: none;">
             <h3>Invite:</h3>
             <div id="meeting-link"></div>
