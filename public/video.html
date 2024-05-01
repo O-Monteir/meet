@@ -10,10 +10,23 @@
 
 </head>
 <body>
-    <label for="username">Enter Your Name:</label>
-    <input type="text" id="username" name="username">
-    <button id="join-btn"> Join call </button>
+    <div class="join-container">
+        <input type="text" id="username" name="username" placeholder="Enter Name">
+        <button id="join-btn"> Join call </button>
+    </div>
+
+    <div id="meeting-link-container" style="display: none;">
+        <h3>Invite:</h3>
+        <div id="meeting-link"></div>
+    </div>
+    
+    
     <div id="stream-wrapper">
+        <nav id="navbar">
+            <!-- Navbar content -->
+            <span id="navbar-username"></span>
+        </nav>
+        
         <div id="video-streams"></div>
 
         <div id="stream-controls">
@@ -34,12 +47,18 @@
             </div>
 
             <!-- Display the meeting link -->
-            <div id="meeting-link-container">
-                <h3>Meeting Link:</h3>
+            <!-- <div id="meeting-link-container">
+                <h3>Invite:</h3>
                 <div id="meeting-link"></div>
-            </div>
+            </div> -->
             
         </div>
+
+        <div id="meeting-link-container" style="display: none;">
+            <h3>Invite:</h3>
+            <div id="meeting-link"></div>
+        </div>
+        
     </div>
 </body>
 <script src="AgoraRTC_N-4.18.3.js"></script>

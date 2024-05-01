@@ -2,7 +2,7 @@
 const APP_ID = 'f41cb1258bef40fb8a284e65e15f0a83';
 // const TOKEN = process.env.TOKEN;
 // const CHANNEL = process.env.CHANNEL;
-const TOKEN="007eJxTYNgUJr/VQskq9vCFDbe+px9M8g53tuCMaFEydpRgY/lzJFyBIc3EMDnJ0MjUIik1zcQgLcki0cjCJNXMNNXQNM0g0cLYN0I2rSGQkaGk7B0zIwMEgvgsDCmpufkMDACSdBy+"
+const TOKEN="007eJxTYOhodUr6ed6TY7v+l6zAnxUfxc7FsjzOdnY68umIQUSx8SEFhjQTw+QkQyNTi6TUNBODtCSLRCMLk1Qz01RD0zSDRAvjcEGjtIZARoZF3f8ZGKEQxGdhSEnNzWdgAACBIx/u"
 const CHANNEL="demo"
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 const hostUrl = window.location.origin; // Get the current host URL
@@ -94,9 +94,17 @@ let joinAndDisplayLocalStream = async () => {
 };
 
 let joinStream = async () => {
+    
     await joinAndDisplayLocalStream();
+    document.getElementById('username').style.display = 'none';
+    
+
     document.getElementById('join-btn').style.display = 'none';
+
     document.getElementById('stream-controls').style.display = 'flex';
+
+    // Display the meeting link container
+    document.getElementById('meeting-link-container').style.display = 'block';
 
     // Generate the link dynamically
     
