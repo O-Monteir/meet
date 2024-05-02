@@ -8,6 +8,7 @@ const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 const hostUrl = window.location.origin; // Get the current host URL
 let localTracks = [];
 let remoteUsers = {};
+let uidUsernameMap = {};
 
 // Initialize transcription
 let isTranscribing = false;
@@ -23,7 +24,7 @@ recognition.continuous = true;
 
 recognition.onresult = async function (event) {
     console.log('Speech recognition result event:', event);
-    var current = event.resultIndex;
+    var current = event.resultIndex;z
     var transcript = event.results[current][0].transcript;
     
     // Construct the message with the timestamp
@@ -57,6 +58,8 @@ let joinAndDisplayLocalStream = async () => {
 
     let UID = await client.join(APP_ID, CHANNEL, TOKEN, null);
     let username = document.getElementById('username').value;
+
+    uidUsernameMap[UID] = username;
 
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
 
@@ -124,6 +127,11 @@ let joinStream = async () => {
 
 let handleUserJoined = async (user, mediaType) => {
     remoteUsers[user.uid] = user;
+
+    if (uidUsernameMap[user.uid] === undefined) {
+        uidUsernameMap[user.uid] = 'Sarah'; // Set a default username for remote users
+    }
+
     await client.subscribe(user, mediaType);
 
     if (mediaType === 'video') {
@@ -134,6 +142,7 @@ let handleUserJoined = async (user, mediaType) => {
 
         player = `<div class="video-container" id="user-container-${user.uid}">
                     <div class="video-player" id="user-${user.uid}"></div> 
+                    <div class="username-display">${uidUsernameMap[user.uid]}</div>
                 </div>`;
 
         document.getElementById('video-streams').insertAdjacentHTML('beforeend', player);
@@ -143,11 +152,14 @@ let handleUserJoined = async (user, mediaType) => {
     if (mediaType === 'audio') {
         user.audioTrack.play();
     }
+
+    uidUsernameMap[user.uid] = user.username;
 }
 
 let handleUserLeft = async (user) => {
     delete remoteUsers[user.uid];
     document.getElementById(`user-container-${user.uid}`).remove();
+    delete uidUsernameMap[user.uid];
 }
 
 

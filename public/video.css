@@ -109,11 +109,28 @@ body {
     margin-top: 15px;
 }
 
+/* #video-streams {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    grid-auto-rows: 250px; 
+    gap: 10px; 
+    height: 90vh;
+    width: calc(100% - 280px);
+    margin-left: 20px;
+    overflow: hidden; 
+}
+
+@media screen and (min-width: 800px) { 
+    #video-streams {
+        width: calc(100% - 540px); 
+    }
+} */
+
 #video-streams {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusted grid template */
-    grid-auto-rows: 250px; /* Fixed height for rows */
-    gap: 10px; /* Increased gap for aesthetic appeal */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Increase the minimum column width */
+    grid-auto-rows: 350px; /* Increase the row height */
+    gap: 20px; /* Increased gap for aesthetic appeal */
     height: 90vh;
     width: calc(100% - 280px);
     margin-left: 20px;
@@ -125,6 +142,9 @@ body {
         width: calc(100% - 540px); /* Adjusted width for wider screens */
     }
 }
+
+
+
 
 .video-player {
     height: 100%;
