@@ -9,7 +9,7 @@ const path = require('path');
 const axios = require('axios'); 
 const https = require('https');
 
-
+const txtUrls = [];
 const transcriptUsernames = ['Sarah', 'Malaika']
 
 dotenv.config();
@@ -105,7 +105,7 @@ async function uploadTranscriptToCloudinary(combinedTranscript) {
 
 app.post('/combineTranscripts', async (req, res) => {
     try {
-        
+        await searchAndCollectTxtUrls()
         const transcripts =await combineTranscripts(); // Execute the combineTranscripts method
         
         if(transcripts!==null){
@@ -130,52 +130,67 @@ app.post('/combineTranscripts', async (req, res) => {
 });
 
 // Function to fetch transcript data from HTTP links for a given username
-function fetchTranscriptData(username) {
+function fetchTranscriptData(url) {
     return new Promise((resolve, reject) => {
-        cloudinary.search
-            .expression(`public_id:${username}_transcript.txt`)
-            .execute()
-            .then(result => {
-                // Check if resources were found
-                if (result.resources && result.resources.length > 0) {
-                    // Extract the URL from the first resource
-                    const url = result.resources[0].secure_url;
-                    console.log("URL:", url);
-                    
-                    // Use the URL to fetch the transcript data
-                    https.get(url, res => {
-                        let data = '';
+        // const url = `https://res.cloudinary.com/drf5xu4vy/raw/upload/${username}_transcript.txt`;
+        const regex = /\/(\w+)_transcript\.txt/;
 
-                        res.on('data', chunk => {
-                            data += chunk;
-                        });
+        // Match the regular expression against the URL
+        const match = url.match(regex);
 
-                        res.on('end', () => {
-                            resolve({ username, data });
-                        });
+        // Extract the name from the matched result
+        const username = match ? match[1] : null;
+        // console.log(url)
+        https.get(url, res => {
+            let data = '';
 
-                        res.on('error', err => {
-                            reject(err);
-                        });
-                    });
-                } else {
-                    reject("No transcript found for username: " + username);
-                }
-            })
-            .catch(error => {
-                reject(error);
+            res.on('data', chunk => {
+                data += chunk;
             });
+
+            res.on('end', () => {
+                resolve({ username, data });
+            });
+
+            res.on('error', err => {
+                reject(err);
+            });
+        });
     });
 }
 
+function searchAndCollectTxtUrls() {
+    return new Promise((resolve, reject) => {
+        
+
+        cloudinary.search
+            .expression("resource_type:raw AND format:txt")
+            .sort_by("public_id", "asc")
+            .execute()
+            .then(result => {
+                if (result.resources && result.resources.length > 0) {
+                    result.resources.forEach(resource => {
+                        txtUrls.push(resource.secure_url);
+                    });
+                    console.log(txtUrls)
+                    resolve(txtUrls); // Resolve with the list of URLs
+                } else {
+                    reject("No text files found.");
+                }
+            })
+            .catch(error => {
+                reject("An error occurred during Cloudinary search: " + error);
+            });
+    });
+}
 
 async function combineTranscripts() {
     let combinedTranscriptsList = [];
     
     // Fetch transcripts for all users
-    for (const username of transcriptUsernames) {
+    for (const url of txtUrls) {
         try {
-            const { username: fetchedUsername, data } = await fetchTranscriptData(username);
+            const { username: fetchedUsername, data } = await fetchTranscriptData(url);
             
             // Extract timestamp and text from each line
             data.split('\n').forEach(line => {
