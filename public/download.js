@@ -1,14 +1,11 @@
-async function fetchMeetingMinutes() {
-    console.log("SECOND");
-    
-   
-    const response = await fetch('http://127.0.0.1:5000/summarize');
-       
-}
+document.addEventListener("DOMContentLoaded", function() {
+    // Hide the loading screen when the document is fully loaded
+    hideLoadingScreen();
+});
 
 document.getElementById('download-btn').addEventListener('click', async () => {
     try {
-  
+        showLoadingScreen();
         console.log("START")
         const response = await fetch('/combineTranscripts', {
             method: 'POST',
@@ -47,7 +44,7 @@ document.getElementById('download-btn').addEventListener('click', async () => {
         console.error('Error: ', error.message);
         callPythonFunction()
        
-    }
+    } 
 });
 
 
@@ -75,3 +72,12 @@ const downloadPdf = (url) => {
 
 
 
+function showLoadingScreen() {
+    // Show loading overlay
+    document.getElementById('loading-overlay').style.display = 'block';
+}
+
+function hideLoadingScreen() {
+    // Hide loading overlay
+    document.getElementById('loading-overlay').style.display = 'none';
+}

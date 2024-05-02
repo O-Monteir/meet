@@ -132,24 +132,39 @@ app.post('/combineTranscripts', async (req, res) => {
 // Function to fetch transcript data from HTTP links for a given username
 function fetchTranscriptData(username) {
     return new Promise((resolve, reject) => {
-        const url = `https://res.cloudinary.com/drf5xu4vy/raw/upload/${username}_transcript.txt`;
+        cloudinary.search
+            .expression(`public_id:${username}_transcript.txt`)
+            .execute()
+            .then(result => {
+                // Check if resources were found
+                if (result.resources && result.resources.length > 0) {
+                    // Extract the URL from the first resource
+                    const url = result.resources[0].secure_url;
+                    console.log("URL:", url);
+                    
+                    // Use the URL to fetch the transcript data
+                    https.get(url, res => {
+                        let data = '';
 
-        console.log(url)
-        https.get(url, res => {
-            let data = '';
+                        res.on('data', chunk => {
+                            data += chunk;
+                        });
 
-            res.on('data', chunk => {
-                data += chunk;
+                        res.on('end', () => {
+                            resolve({ username, data });
+                        });
+
+                        res.on('error', err => {
+                            reject(err);
+                        });
+                    });
+                } else {
+                    reject("No transcript found for username: " + username);
+                }
+            })
+            .catch(error => {
+                reject(error);
             });
-
-            res.on('end', () => {
-                resolve({ username, data });
-            });
-
-            res.on('error', err => {
-                reject(err);
-            });
-        });
     });
 }
 
