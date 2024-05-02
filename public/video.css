@@ -234,3 +234,42 @@ button:hover {
     color: #0056b3; /* Darker blue on hover */
 }
 
+
+/* Header section styling */
+.header_section {
+    position: fixed; /* Anchor the header to the top */
+    top: 0; /* Set the distance from the top */
+    width: 100%; /* Set full width */
+    background-color: #3625b3; /* Set background color */
+    padding: 10px 0; /* Set padding */
+    z-index: 1000; /* Set z-index to ensure it appears above other content */
+}
+
+.custom_nav-container {
+    padding: 0 20px; /* Add padding to the navbar */
+}
+
+.navbar-brand {
+    color: #fff; /* Set navbar brand text color */
+    font-weight: bold; /* Set font weight */
+}
+
+.navbar-nav .nav-link {
+    color: #fff; /* Set navbar link text color */
+    font-weight: 500; /* Set font weight */
+}
+
+.navbar-toggler {
+    border: none; /* Remove border */
+    color: #fff; /* Set toggler color */
+}
+
+.nav_search-btn {
+    color: #fff; /* Set search button color */
+    background-color: transparent; /* Set background color */
+    border: none; /* Remove border */
+}
+
+.nav_search-btn:hover {
+    color: #f8f9fa; /* Change color on hover */
+}

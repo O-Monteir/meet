@@ -104,13 +104,13 @@ let joinStream = async () => {
     document.getElementById('stream-controls').style.display = 'flex';
     // document.getElementsByClassName('join-container').style.display='none';
     document.querySelector('.body-img').style.display = 'none';
-
+    document.getElementById('header').style.display='none';
     // Hide the logo image
     document.querySelector('.join-container .logo img').style.display = 'none';
 
     // Display the meeting link container
     document.getElementById('meeting-link-container').style.display = 'block';
-
+    document.getElementsByClassName('header_section').style.display='none';
     document.getElementById('transcription').style.display = 'block';
 
     // Generate the link dynamically
@@ -179,6 +179,7 @@ let leaveAndRemoveLocalStream = async () => {
     document.getElementById('stream-controls').style.display = 'none';
     document.getElementById('video-streams').innerHTML = '';
     document.querySelector('.body-img').style.display = 'block';
+    document.getElementById('header').style.display='block';
     // Hide the logo image
     document.querySelector('.join-container .logo img').style.display = 'block';
     document.getElementById('meeting-link-container').style.display = 'none';
