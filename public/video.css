@@ -204,7 +204,7 @@ button:hover {
     background-color: #f3f4f6; /* Light gray background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding-left: 10px;
-    width: 260px; /* Adjust the width as needed */
+    width: 300px; /* Adjust the width as needed */
 }
 
 #meeting-link-container h3 {
