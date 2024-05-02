@@ -9,6 +9,7 @@ const path = require('path');
 const axios = require('axios'); 
 const https = require('https');
 
+
 const transcriptUsernames = ['Sarah', 'Malaika']
 
 dotenv.config();
@@ -114,7 +115,7 @@ app.post('/combineTranscripts', async (req, res) => {
             const cloudinaryUploadResult = await uploadTranscriptToCloudinary(transcripts);
             console.log("Cloudinary upload result:", cloudinaryUploadResult);
 
-            res.status(200).json({ success: true, cloudinaryUploadResult });
+            res.status(200).json({ success: true });
             
         }
         else{
@@ -131,7 +132,9 @@ app.post('/combineTranscripts', async (req, res) => {
 // Function to fetch transcript data from HTTP links for a given username
 function fetchTranscriptData(username) {
     return new Promise((resolve, reject) => {
-        const url = `https://res.cloudinary.com/drf5xu4vy/raw/upload/v1711373576/${username}_transcript.txt`;
+        const url = `https://res.cloudinary.com/drf5xu4vy/raw/upload/${username}_transcript.txt`;
+
+        console.log(url)
         https.get(url, res => {
             let data = '';
 
@@ -152,7 +155,7 @@ function fetchTranscriptData(username) {
 
 
 async function combineTranscripts() {
-    let combinedTranscripts = [];
+    let combinedTranscriptsList = [];
     
     // Fetch transcripts for all users
     for (const username of transcriptUsernames) {
@@ -167,7 +170,7 @@ async function combineTranscripts() {
                     const text = textParts.join(' - ');
                     
                     // Push the message to combinedTranscripts
-                    combinedTranscripts.push({ username: fetchedUsername, timestamp, text });
+                    combinedTranscriptsList.push({ username: fetchedUsername, timestamp, text });
                 }
             });
         } catch (error) {
@@ -175,12 +178,13 @@ async function combineTranscripts() {
         }
     }
 
+    
     // Sort combined transcripts by timestamp
-    combinedTranscripts.sort((a, b) => a.timestamp - b.timestamp);
+    combinedTranscriptsList.sort((a, b) => a.timestamp - b.timestamp);
     
     // Construct the output string
     let output = '';
-    combinedTranscripts.forEach(transcript => {
+    combinedTranscriptsList.forEach(transcript => {
         output += `${transcript.username}:\n\n${transcript.text}\n\n`;
     });
     

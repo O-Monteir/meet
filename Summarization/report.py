@@ -15,7 +15,7 @@ def gen_report(minutes):
     pdf_filename = "meeting_minutes.pdf"
     
     # Create a SimpleDocTemplate object
-    doc = SimpleDocTemplate(pdf_filename, pagesize=A4)
+    doc = SimpleDocTemplate(pdf_filename, pagesize=A4, title="Meeting Minutes")
     
     # Set up styles for justified text
     styles = getSampleStyleSheet()
