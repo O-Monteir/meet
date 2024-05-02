@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equip='X-UA-Compatiable' content="IE=edge">
+    <!-- <meta http-equip='X-UA-Compatiable' content="IE=edge"> -->
+    <meta http-equiv='X-UA-Compatible' content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video calling application</title>
     <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.18.3.js"></script>
@@ -13,21 +15,21 @@
     <nav id="page">
         <a href="./index.html" class="arrow left-arrow">&#8592; Home Page</a>
         <a href="./download.html" class="arrow right-arrow">Download Transcript &#8594;</a>
-
     </nav>
     
-    <img class="body-img" src="./images/body.jpg" style="width: 850px; height: 600px;">
+   
     
     <div class="join-container">
         <div class="logo">
             <img src="./images/logo.png" alt="meet-icon"> 
         </div>
-        <br>
-    
         
         <input type="text" id="username" name="username" placeholder="Enter Name">
+        <br>
         <button id="join-btn"> Join call </button>
     </div>
+
+    <img class="body-img" src="./images/body.jpg" >
 
     <div id="meeting-link-container" style="display: none;">
         <h3>Invite:</h3>
@@ -40,9 +42,8 @@
             <!-- Navbar content -->
             <span id="navbar-username"></span>
         </nav>
-        
         <div id="video-streams"></div>
-
+        
         <div id="stream-controls">
             
             <button id="leave-btn">Leave Stream</button>
@@ -50,14 +51,12 @@
             <button id="camera-btn">Camera on</button>
             
             
-            <div id="transcription">
-                <h2>Transcription:</h2>
-                <div id="transcription-content"></div>
-            </div>
-
-            
         </div>
 
+        <div id="transcription">
+            <h2>Transcription:</h2>
+            <div id="transcription-content"></div>
+        </div>
         
         <div id="meeting-link-container" style="display: none;">
             <h3>Invite:</h3>

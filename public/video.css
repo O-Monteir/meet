@@ -3,7 +3,9 @@ body {
     background: #ffffff;
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    overflow: hidden;
 }
+
 
 #page {
     position: fixed;
@@ -34,19 +36,29 @@ body {
     right: 20px; /* Adjust right position */
 }
 
-
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.body-img {
+    width: 850px;
+    height: 600px;
+    position: absolute; /* Change the positioning to absolute */
+    top: 50%; /* Move the image vertically to the center */
+    right: 20px; /* Adjust the distance from the right side */
+    transform: translateY(-50%); /* Center the image vertically */
 }
 
 
 #join-container {
-    text-align:left;
+    position: fixed;
+    /* top: 1000px; */
+    left: 20px;
+    transform: translateY(-50%);
+    text-align: left;
 }
+
+.logo img {
+    margin-top: 180px; /* Adjust as needed */
+    margin-left: 140px;
+}
+
 
 #username {
     padding: 10px;
@@ -54,9 +66,10 @@ html, body {
     border: 2px solid #007bff;
     border-radius: 5px;
     margin-bottom: 20px;
-    width: 200px;
-    display: block;
-    margin: 0 auto;
+    margin-left: 170px; 
+    /* import if dist from left is required */
+    width: 280px; 
+    margin-top: 20px;
 
 }
 
@@ -70,9 +83,10 @@ html, body {
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
     transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    margin-top: 25px;
+    margin-top: 0px;
+    margin-left: 170px;
+    /* important to change top and bottom dist */
+   
 }
 
 #join-btn:hover {
@@ -91,26 +105,25 @@ html, body {
     margin: 5px;
 }
 
-#video-streams {
-    display: grid;
-    /* grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); */
-    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
-    grid-auto-rows: auto;
-    gap: 2px;
-    height: 90vh;
-    width: 95%;
-    margin: 0 auto;
+#stream-wrapper{
+    margin-top: 15px;
 }
 
+#video-streams {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusted grid template */
+    grid-auto-rows: 250px; /* Fixed height for rows */
+    gap: 10px; /* Increased gap for aesthetic appeal */
+    height: 90vh;
+    width: calc(100% - 280px);
+    margin-left: 20px;
+    overflow: hidden; /* Hide overflow to prevent excessively narrow videos */
+}
 
-
-
-.video-container {
-    max-height: 100%;
-    border: 2px solid #ddd;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+@media screen and (min-width: 800px) { /* Adjust the breakpoint as needed */
+    #video-streams {
+        width: calc(100% - 540px); /* Adjusted width for wider screens */
+    }
 }
 
 .video-player {
@@ -139,7 +152,8 @@ button:hover {
 #stream-controls {
     display: none;
     justify-content: center;
-    margin-top: 0.5em;
+    margin-top: 20 em;
+   
 }
 
 #start-transcribing {
@@ -151,9 +165,10 @@ button:hover {
 }
 
 #transcription {
+    display: none;
     position: fixed;
     top: 20px;
-    left: 20px;
+    right: 20px;
     border-radius: 8px;
     background-color: #f3f4f6; /* Light gray background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -181,20 +196,10 @@ button:hover {
 }
 
 
-
-/* #transcription-content {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-} */
-/*  */
-
 #meeting-link-container {
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px;
     border-radius: 8px;
     background-color: #f3f4f6; /* Light gray background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -229,9 +234,3 @@ button:hover {
     color: #0056b3; /* Darker blue on hover */
 }
 
-@media screen and (max-width: 1400px) {
-    #video-streams {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        width: 95%;
-    }
-}

@@ -2,7 +2,7 @@
 const APP_ID = 'f41cb1258bef40fb8a284e65e15f0a83';
 // const TOKEN = process.env.TOKEN;
 // const CHANNEL = process.env.CHANNEL;
-const TOKEN="007eJxTYOhodUr6ed6TY7v+l6zAnxUfxc7FsjzOdnY68umIQUSx8SEFhjQTw+QkQyNTi6TUNBODtCSLRCMLk1Qz01RD0zSDRAvjcEGjtIZARoZF3f8ZGKEQxGdhSEnNzWdgAACBIx/u"
+const TOKEN="007eJxTYCi5xdIiduzbxRR9f37ufQ/mqzo8/njfPqL3+Hm+sqdZDicUGNJMDJOTDI1MLZJS00wM0pIsEo0sTFLNTFMNTdMMEi2MJ6cYpzUEMjJc8ZrAysgAgSA+C0NKam4+AwMAhfUgIQ=="
 const CHANNEL="demo"
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 const hostUrl = window.location.origin; // Get the current host URL
@@ -111,6 +111,8 @@ let joinStream = async () => {
     // Display the meeting link container
     document.getElementById('meeting-link-container').style.display = 'block';
 
+    document.getElementById('transcription').style.display = 'block';
+
     // Generate the link dynamically
     document.getElementById('page').style.display = 'none';
     const link = `${hostUrl}/video.html`; // Complete meeting link
@@ -181,6 +183,7 @@ let leaveAndRemoveLocalStream = async () => {
     document.querySelector('.join-container .logo img').style.display = 'block';
     document.getElementById('meeting-link-container').style.display = 'none';
     document.getElementById('page').style.display = 'block';
+    document.getElementById('transcription').style.display = 'none';
 }
 
 
