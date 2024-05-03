@@ -10,7 +10,7 @@ const axios = require('axios');
 const https = require('https');
 
 const txtUrls = [];
-const transcriptUsernames = ['Sarah', 'Malaika']
+const transcriptUsernames = ['Sarah', 'Malaika','Ivan']
 
 dotenv.config();
 
