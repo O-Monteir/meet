@@ -24,7 +24,7 @@ recognition.continuous = true;
 
 recognition.onresult = async function (event) {
     console.log('Speech recognition result event:', event);
-    var current = event.resultIndex;z
+    var current = event.resultIndex;
     var transcript = event.results[current][0].transcript;
     
     // Construct the message with the timestamp
